@@ -31,5 +31,25 @@ L.marker( [-27.2200772, -49.6482579], { icon: icon } )
   .addTo( map );
 
 function selectImage( event ) {
+  const button = event.currentTarget;
 
+  const buttons = document.querySelectorAll(".images button");
+  buttons.forEach(removeActiveClass);
+  // buttons.forEach((button) => {
+  //   button.classList.remove("active");
+  // });
+
+  function removeActiveClass(button) {
+    button.classList.remove("active");
+  }
+
+  const image = button.children[0];
+  const imageContainer = document.querySelector(".orphanage-details > img");
+
+  imageContainer.src = image.src;
+
+  // function removeActiveClass(button){
+  //   button.classList.remove("active");
+  // }
+  button.classList.add("active");
 }
