@@ -1,0 +1,20 @@
+{
+  "name": "happy",
+  "version": "1.0.0",
+  "description": "Sistema Happy para procurar orfanatos e doar presentes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/realjcwkm/happy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/realjcwkm/happy/issues"
+  },
+  "homepage": "https://github.com/realjcwkm/happy#readme"
+}
