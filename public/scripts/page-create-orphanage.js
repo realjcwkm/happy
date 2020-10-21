@@ -1,55 +1,84 @@
-const options = {
-  dragging: false,
-  touchZone: false,
-  doubleClickZoom: false,
-  scrollWheelZoom: false,
-  zoomControl: false
-}
+// Cria o mapa, setView([lat, long], zoom)
+const map = L.map("mapid").setView([-27.2200772, -49.6482579], 15);
 
-// setView([lat, long], zoom)
-const map = L.map( 'mapid', options ).setView( [-27.2200772, -49.6482579], 15 );
+// Cria e adiciona o tileLayer
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
 
-L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-).addTo( map );
-
-const icon = L.icon( {
+// Cria o icone
+const icon = L.icon({
   iconUrl: "./public/images/map-marker.svg",
   iconSize: [58, 68],
   iconAnchor: [29, 68],
-  popupAnchor: [170, 2]
-} );
+});
 
-const popup = L.popup( {
-  closeButton: false,
-  className: 'map-popup',
-  minWidth: 240,
-  minHeight: 240,
-} ).setContent( 'Lar das meninas <a href="orphanage.html?id=1" class="choose-orphanage"><img src="./public/images/arrow-white.svg"></a>' );
+let marker;
 
-L.marker( [-27.2200772, -49.6482579], { icon: icon } )
-  .addTo( map );
+map.on("click", (event) => {
+  const lat = event.latlng.lat;
+  const lng = event.latlng.lng;
 
-function selectImage( event ) {
-  const button = event.currentTarget;
+  document.querySelector("[name=lat]").value = lat;
+  document.querySelector("[name=lng]").value = lng;
 
-  const buttons = document.querySelectorAll(".images button");
-  buttons.forEach(removeActiveClass);
-  // buttons.forEach((button) => {
-  //   button.classList.remove("active");
-  // });
+  marker && map.removeLayer(marker);
 
-  function removeActiveClass(button) {
-    button.classList.remove("active");
+  // adiciona o icon no mapa
+  marker = L.marker([lat, lng], { icon })
+              .addTo(map);
+});
+
+// upload de fotos
+function addPhotoField(){
+  // pegar o container de fotos com id images
+  const container = document.querySelector("#images");
+  
+  // pegar o container para duplicar .new-images
+  const fieldsContainer = document.querySelector(".new-upload");
+  
+  // realizar o clone da ultima image adicionada
+  const newFieldContainer = fieldsContainer[fieldsContainer.length-1].cloneNode(true);
+  
+  // verificar se o campo esta vazio, se sim, nao adicionar ao container de imagens
+  const input = newFieldContainer.children[0];
+
+  if (input.value == ""){
+    return;
   }
 
-  const image = button.children[0];
-  const imageContainer = document.querySelector(".orphanage-details > img");
+  //limpar o campo antes de adicionar ao container de imagens
+  input.value = "";
 
-  imageContainer.src = image.src;
-
-  // function removeActiveClass(button){
-  //   button.classList.remove("active");
-  // }
-  button.classList.add("active");
+  // adicionar o clone ao container de fotos
+  container.appendChild(newFieldContainer)
 }
+
+function deleteField(event){
+  const span = event.currentTarget;
+
+  const fieldsContainer = document.querySelector(".new-upload");
+
+  if(fieldsContainer.length <= 1){
+    span.parentNode.children[0].value = "";
+    return;
+  }
+
+  span.parentNode.remove();
+}
+
+function toggleSelect(event){
+  document.querySelector(".button-select button").forEach((button) => {
+    button.classList.remove("active");
+  });
+
+  const button = event.currentTarget;
+  button.classList.add("active");
+
+  const input = document.querySelector("[name=open_on_weekends");
+
+  input.value = button.dataset.value;
+  
+
+}
+
+
+L.marker([-27.2200772, -49.6482579], { icon: icon }).addTo(map);
