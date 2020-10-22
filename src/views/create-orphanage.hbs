@@ -43,7 +43,8 @@
       </aside>
 
       <main class="orphanage-appear with-sidebar">
-        <form action="">
+        {{!-- <form action="save-orphanage" method="POST" onsubmit="validade(event)"> --}}
+        <form action="save-orphanage" method="POST">
           <fieldset>
             <legend>Dados</legend>
             <div class="map-container">
@@ -76,7 +77,11 @@
               <div class="images-upload" id="images">
 
                 <div class="new-upload">
-                  <input name="images" placeholder="Cole o link da foto aqui" required>
+                  <input
+                    name="images"
+                    placeholder="Cole o link da foto aqui"
+                    required
+                    type="url">
                   <span onclick="deleteField(event)"><img src="/images/remove-file.svg" alt="Remover foto"></span>
                 </div>              
               

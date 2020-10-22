@@ -76,8 +76,12 @@ function toggleSelect(event){
   const input = document.querySelector("[name=open_on_weekends");
 
   input.value = button.dataset.value;
-  
+}
 
+function validate(event){
+  // validar se todos os campos estao preenchidos
+  // validar se lat e lng esta preenchido
+  event.preventDefault();
 }
 
 
