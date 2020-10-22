@@ -6,8 +6,13 @@ const options = {
   zoomControl: false
 }
 
+const spanLat = document.querySelector("span[data-lat]");
+const spanLng = document.querySelector("span[data-lng]");
+const lat = spanLat.dataset.lat;
+const lng = spanLng.dataset.lng;
+
 // setView([lat, long], zoom)
-const map = L.map( 'mapid', options ).setView( [-27.2200772, -49.6482579], 15 );
+const map = L.map( 'mapid', options ).setView( [lat, lng], 15 );
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -27,7 +32,8 @@ const popup = L.popup( {
   minHeight: 240,
 } ).setContent( 'Lar das meninas <a href="orphanage?id=1" class="choose-orphanage"><img src="/images/arrow-white.svg"></a>' );
 
-L.marker( [-27.2200772, -49.6482579], { icon: icon } )
+
+L.marker( [lat, lng], { icon: icon } )
   .addTo( map );
 
 function selectImage( event ) {
